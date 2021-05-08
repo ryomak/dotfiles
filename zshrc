@@ -59,51 +59,8 @@ bindkey '^S' peco_src
 export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
 
 #for tmux
-if [[ ! -n $TMUX ]]; then
-  # get the IDs
-  ID="`tmux list-sessions`"
-  if [[ -z "$ID" ]]; then
-    tmux new-session
-  fi
-  create_new_session="Create New Session"
-  ID="$ID\n${create_new_session}:"
-  ID="`echo $ID | $PERCOL | cut -d: -f1`"
-  if [[ "$ID" = "${create_new_session}" ]]; then
-    tmux new-session
-  elif [[ -n "$ID" ]]; then
-    tmux attach-session -t "$ID"
-  else
-    :  # Start terminal normally
-  fi
-fi
-
 ## local
 export PATH="$PATH:/usr/local"
-
-## for m1(arm)
-###  https://zenn.dev/ress/articles/069baf1c305523dfca3d
-typeset -U path PATH
-path=(
-	/opt/homebrew/bin(N-/)
-	/usr/local/bin(N-/)
-	$path
-)
-
-if [[ "${(L)$( uname -s )}" == darwin ]] && (( $+commands[arch] )); then
-	alias brew="arch -arch x86_64 /usr/local/bin/brew"
-	alias x64='exec arch -arch x86_64 "$SHELL"'
-	alias a64='exec arch -arch arm64e "$SHELL"'
-	switch-arch() {
-		if  [[ "$(uname -m)" == arm64 ]]; then
-			arch=x86_64
-		elif [[ "$(uname -m)" == x86_64 ]]; then
-			arch=arm64e
-		fi
-		exec arch -arch $arch "$SHELL"
-	}
-fi
-
-setopt magic_equal_subst
 
 
 # for custom
@@ -111,7 +68,7 @@ source $HOME/.zshrc.mine
 
 
 # The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/ryomak/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/ryomak/Downloads/google-cloud-sdk/path.zsh.inc'; fi
+if [ -f '/Users/ryomak/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/ryomak/google-cloud-sdk/path.zsh.inc'; fi
 
 # The next line enables shell command completion for gcloud.
-if [ -f '/Users/ryomak/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/ryomak/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
+if [ -f '/Users/ryomak/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/ryomak/google-cloud-sdk/completion.zsh.inc'; fi
