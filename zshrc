@@ -67,6 +67,9 @@ export PATH="$PATH:/usr/local"
 source $HOME/.zshrc.mine
 
 
+eval "$(rbenv init -)"
+
+
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/ryomak/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/ryomak/google-cloud-sdk/path.zsh.inc'; fi
 
